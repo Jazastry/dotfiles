@@ -1,2 +1,2 @@
 # dotfiles
-My setting files
+## My settings files
