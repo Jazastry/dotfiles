@@ -41,6 +41,8 @@ set nu
 " This sets up the indent line for function scopes
 set listchars=tab:\|\
 set list
+" shows vertical line on assigned value
+set cc=110
 
 " font and size
 set guifont=Consolas\ 12
@@ -200,6 +202,9 @@ set backupskip=/tmp/*,/private/tmp/*
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 
+" parcel hot replacement tweak
+set backupcopy=yes
+
 " show file path and name in the status bar
 set laststatus=2
 
@@ -347,3 +352,21 @@ vnoremap p "_dP
 " close all buffers but the opened one
 command! -nargs=? -complete=buffer -bang BufOnly :%bd|e#
 
+" fzf for buffers search
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <space><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
