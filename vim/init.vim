@@ -80,16 +80,9 @@ set cc=110
 " delays and poor user experience.
 set updatetime=300
 
-" Show trailing spaces set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:.
-set listchars=tab:>·,extends:>,precedes:<
-
 set list
 syn match Tab "\t"
 hi def Tab ctermbg=darkgreen guibg=#545f70
-
-" Show trailing white paces
-:highlight ExtraWhitespace ctermbg=red guibg=red
-:match ExtraWhitespace /\s\+$/
 
 filetype plugin on
 
@@ -399,6 +392,9 @@ let g:ultisnips_javascript = {
 " CocInstall coc-snippets
 " CocInstall coc-tsserver
 " CocInstall coc-json
+" CocInstall coc-vetur
+" CocInstall coc-prettier
+" CocInstall coc-stylelint
 
 " To get correct comment highlighting in coc-settings.json
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -425,3 +421,17 @@ inoremap <silent><expr> <c-space>  coc#refresh()
 nmap <silent> <space>ld <Plug>(coc-definition)
 " Remap for rename current word
 nmap <space>lr <Plug>(coc-rename)
+" VUE coc setup
+let g:LanguageClient_serverCommands = {
+    \ 'vue': ['vls']
+    \ }
+
+"----------------------------------------------------------
+" white spaces reveal
+"----------------------------------------------------------
+" Show trailing spaces set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:.
+set listchars=tab:>·,extends:>,precedes:<
+
+" Show trailing white paces
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$/
