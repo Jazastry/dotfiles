@@ -11,9 +11,9 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " A solid language pack (syntax highlighting)
 Plug 'sheerun/vim-polyglot'
+Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'townk/vim-autoclose'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'mileszs/ack.vim'
 Plug 'https://github.com/lilydjwg/colorizer'
@@ -218,13 +218,17 @@ nnoremap <space>f :Ack! '
 " Console log from insert mode; Puts focus inside parentheses
 imap <silent> cll console.log()<Esc>ha
 " Console log from visual mode on next line, puts visual selection inside parentheses
-vmap <silent> cll yoconsole.log('', )<Esc>hhhPllllPg
+vmap <silent> cll yoconsole.log('<C-R>+:', <C-R>+)<Esc>
+" console.log('', )<Esc>hhhPllllPg
 " Console log from normal mode, inserted on next line with the word you are on inside parentheses
-nmap <silent> cll yiwoconsole.log('', )<Esc>hhhPllllP
+nmap <silent> cll yiwoconsole.log('<C-R>+:', <C-R>+)<Esc>
+" console.log('', )<Esc>hhhPllllP
 " Console log with JSON.stringify
+" Console log from insert mode; Puts focus inside parentheses
 imap <silent> clj console.log(JSON.stringify())<Esc>1hi
-vmap <silent> clj yoconsole.log('', JSON.stringify(*, null, 2)<Esc>28hP18lpA<Esc>)
-nmap <silent> clj yiwoconsole.log('', JSON.stringify(, null, 2))<Esc>28hP18lpA<Esc>
+" vmap <silent> clj yoconsole.log('', JSON.stringify(*, null, 2)<Esc>28hP18lpA<Esc>)
+vmap <silent> clj yoconsole.log('<C-R>+', JSON.stringify(<C-R>+, null, 2))<Esc>
+nmap <silent> clj yiwoconsole.log('<C-R>+', JSON.stringify(<C-R>+, null, 2))<Esc>
 
 " Paste settings
 """"""""""""""""""""
