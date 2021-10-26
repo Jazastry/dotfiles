@@ -5,10 +5,13 @@ Plug 'colepeters/spacemacs-theme.vim'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'nanotech/jellybeans.vim'
 
+" Plug 'leafgarland/typescript-vim'
+" Plug 'peitalin/vim-jsx-typescript'
+Plug 'terryma/vim-multiple-cursors'
 " Track the engine.
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 " A solid language pack (syntax highlighting)
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
@@ -19,22 +22,30 @@ Plug 'mileszs/ack.vim'
 Plug 'https://github.com/lilydjwg/colorizer'
 Plug 'Yggdroot/indentLine'
 Plug 'Valloric/MatchTagAlways'
-Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 " Color picker
 Plug 'KabbAmine/vCoolor.vim'
 " Dockerfile syntax
 " Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
+"
+Plug 'ianks/vim-tsx'
+
+Plug 'mustache/vim-mustache-handlebars'
 
 Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+" Plug 'neoclide/coc-prettier', { do: 'yarn install --frozen-lockfile' }
+Plug 'jxnblk/vim-mdx-js'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" set the default font
+set guifont=Noto\ Sans\ Mono:h11
+
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
@@ -74,7 +85,7 @@ set nu
 set listchars=tab:\|\
 set list
 " shows vertical line on assigned value
-set cc=110
+set cc=80
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -103,6 +114,9 @@ set conceallevel=0
 set ignorecase
 
 au! BufNewFile,BufRead *.tag,*.sys setf html
+
+" set the leader to ,
+let mapleader=","
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF setup
@@ -135,7 +149,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " open fzf
 """"""""""""""""""""""""
-nnoremap <space>p :FZF<CR>
+nnoremap <silent> <space>p :FZF<CR>
 
 " fzf for buffers search
 """"""""""""""""""""""""
@@ -189,8 +203,8 @@ nmap <silent> <space>h :vertical resize -5<CR>
 nmap <silent> <space>j :resize +5<CR>
 nmap <silent> <space>k :resize -5<CR>
 
-"Remove all trailing whitespace by pressing F5
-nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+"Remove all trailing whitespace by pressing <space> w
+nnoremap <silent> <space>c :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>:w<CR>
 
 " Copy to clipboard
 set clipboard=unnamedplus
@@ -213,20 +227,20 @@ set foldmethod=indent   " fold based on indent level
 " open Ack
 nnoremap <space>f :Ack! '
 
+" Escape terminal mode
+tnoremap <Esc> <C-\><C-n>
+
 " console.log mappigs
 """""""""""""""""""""
 " Console log from insert mode; Puts focus inside parentheses
 imap <silent> cll console.log()<Esc>ha
 " Console log from visual mode on next line, puts visual selection inside parentheses
 vmap <silent> cll yoconsole.log('<C-R>+:', <C-R>+)<Esc>
-" console.log('', )<Esc>hhhPllllPg
 " Console log from normal mode, inserted on next line with the word you are on inside parentheses
 nmap <silent> cll yiwoconsole.log('<C-R>+:', <C-R>+)<Esc>
-" console.log('', )<Esc>hhhPllllP
 " Console log with JSON.stringify
 " Console log from insert mode; Puts focus inside parentheses
 imap <silent> clj console.log(JSON.stringify())<Esc>1hi
-" vmap <silent> clj yoconsole.log('', JSON.stringify(*, null, 2)<Esc>28hP18lpA<Esc>)
 vmap <silent> clj yoconsole.log('<C-R>+', JSON.stringify(<C-R>+, null, 2))<Esc>
 nmap <silent> clj yiwoconsole.log('<C-R>+', JSON.stringify(<C-R>+, null, 2))<Esc>
 
@@ -340,7 +354,12 @@ inoremap <expr> <C-K> pumvisible() ? "\<Up>" : "\<C-k>"
 
 " toggle English spell check
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <space>sp :setlocal spell! spelllang=en_us<CR> 
+nnoremap <silent> <space>sp :setlocal spell! spelllang=en_us<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BG mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+source ~/dotfiles/vim/mappings/bg-keyboard-mapings.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-AIRLINE
@@ -348,7 +367,9 @@ nnoremap <silent> <space>sp :setlocal spell! spelllang=en_us<CR>
 " vim-airline settings
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_section_b = ''
-let g:airline_theme='distinguished'
+let g:airline_theme= 'deus'
+" 'deus' luna
+" "'distinguished'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -382,11 +403,17 @@ command! OpenChangedFiles :call OpenChangedFiles()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-SNIPPETS  setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ultisnips_javascript = {
-     \ 'keyword-spacing': 'always',
-     \ 'semi': 'never',
-     \ 'space-before-function-paren': 'always',
-     \ }
+" let g:ultisnips_javascript = {
+"      \ 'keyword-spacing': 'always',
+"      \ 'semi': 'never',
+"      \ 'space-before-function-paren': 'always',
+"      \ }
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Neovide setup - https://github.com/Kethku/neovide
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neovide_cursor_vfx_mode = "railgun"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COC setup
@@ -399,6 +426,13 @@ let g:ultisnips_javascript = {
 " CocInstall coc-vetur
 " CocInstall coc-prettier
 " CocInstall coc-stylelint
+" CocInstall coc-yaml
+" CocInstall coc-spell-checker
+" CocInstall coc-actions
+" CocInstall coc-lists
+" CocInstall coc-yank
+" CocInstall coc-css
+" CocInstall coc-import-cost
 
 " To get correct comment highlighting in coc-settings.json
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -410,7 +444,7 @@ nmap <space>h :CocCommand tsserver.executeAutofix<CR>
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <space>j <Plug>(coc-snippets-select)
 " Use <C-space> for open popup
-map <C-space> <Plug>
+" map <C-space> <Plug>
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<C-j>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
@@ -418,20 +452,72 @@ let g:coc_snippet_prev = '<C-k>'
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space>  coc#refresh()
 
-"----------------------------------------------------------
-" vim-coc
-"----------------------------------------------------------
-" Remap keys for gotos
-nmap <silent> <space>ld <Plug>(coc-definition)
+" GoTo code navigation.
+nmap <silent> <space>gd <Plug>(coc-definition)
+nmap <silent> <space>gy <Plug>(coc-type-definition)
+nmap <silent> <space>gi <Plug>(coc-implementation)
+nmap <silent> <space>gr <Plug>(coc-references)
 " Remap for rename current word
-nmap <space>lr <Plug>(coc-rename)
+nmap <space>rn <Plug>(coc-rename)
 " VUE coc setup
 let g:LanguageClient_serverCommands = {
     \ 'vue': ['vls']
     \ }
+" TextEdit might fail if hidden is not set.
+set hidden
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+" Give more space for displaying messages.
+set cmdheight=2
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Formatting selected code.
+xmap <space>fr  <Plug>(coc-format-selected)
+nmap <space>fr  <Plug>(coc-format-selected)
+nmap <space>i  <Plug>(coc-fix-current)
+
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 "----------------------------------------------------------
-" white spaces reveal
+" White spaces reveal
 "----------------------------------------------------------
 " Show trailing spaces set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:.
 set listchars=tab:>·,extends:>,precedes:<
@@ -439,3 +525,41 @@ set listchars=tab:>·,extends:>,precedes:<
 " Show trailing white paces
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$/
+
+"----------------------------------------------------------
+" Line number color setup
+"----------------------------------------------------------
+highlight LineNr guifg=#7E7E7E
+
+"----------------------------------------------------------
+" Text spell check and words auto completion
+"----------------------------------------------------------
+vmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)
+" Remaps for do codeAction of selected region
+" function! s:cocActionsOpenFromSelected(type) abort
+"   execute 'CocCommand actions.open ' . a:type
+" endfunction
+
+" " ,(Leader)aw - shows word suggestions for the word under the cursor
+" xmap <silent> <Leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+" nmap <silent> <Leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+"----------------------------------------------------------
+" Open coc-yank yank list
+"----------------------------------------------------------
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+
+"----------------------------------------------------------
+" Open coc-css lint scss
+"----------------------------------------------------------
+autocmd FileType scss setl iskeyword+=@-@
+
+
+"----------------------------------------------------------
+" Scroll info popup
+"----------------------------------------------------------
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
