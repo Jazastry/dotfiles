@@ -1,8 +1,10 @@
-call plug#begin()
+call plug#begin('~/.config/nvim/plugged')
+" call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'colepeters/spacemacs-theme.vim'
 Plug 'liuchengxu/space-vim-theme'
+Plug 'liuchengxu/space-vim-dark'
 Plug 'nanotech/jellybeans.vim'
 
 " Plug 'leafgarland/typescript-vim'
@@ -15,6 +17,7 @@ Plug 'terryma/vim-multiple-cursors'
 " A solid language pack (syntax highlighting)
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
+" Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -29,14 +32,26 @@ Plug 'KabbAmine/vCoolor.vim'
 " Dockerfile syntax
 " Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 "
-Plug 'ianks/vim-tsx'
+" Plug 'ianks/vim-tsx'
 
 Plug 'mustache/vim-mustache-handlebars'
 
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Plug 'neoclide/coc-prettier', { do: 'yarn install --frozen-lockfile' }
+
 Plug 'jxnblk/vim-mdx-js'
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'github/copilot.vim'
+
+Plug 'gpanders/editorconfig.nvim'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -181,7 +196,8 @@ if (has("termguicolors"))
 endif
 set background=dark
 " colorscheme spacemacs-theme
-color space_vim_theme
+" colorscheme space_vim_theme
+colorscheme space-vim-dark
 " colorscheme jellybeans
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -207,7 +223,7 @@ nmap <silent> <space>k :resize -5<CR>
 nnoremap <silent> <space>c :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>:w<CR>
 
 " Copy to clipboard
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 nmap <C-c> let @+=@"
 
 " Copy file path to buffer
@@ -419,20 +435,7 @@ let g:neovide_cursor_vfx_mode = "railgun"
 " COC setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install plugins:
-" CocInstall coc-eslint
-" CocInstall coc-snippets
-" CocInstall coc-tsserver
-" CocInstall coc-json
-" CocInstall coc-vetur
-" CocInstall coc-prettier
-" CocInstall coc-stylelint
-" CocInstall coc-yaml
-" CocInstall coc-spell-checker
-" CocInstall coc-actions
-" CocInstall coc-lists
-" CocInstall coc-yank
-" CocInstall coc-css
-" CocInstall coc-import-cost
+" CocInstall coc-eslint coc-snippets coc-tsserver coc-json coc-vetur coc-prettier coc-stylelint coc-yaml coc-spell-checker coc-actions coc-lists coc-yank coc-css coc-import-cost
 
 " To get correct comment highlighting in coc-settings.json
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -563,3 +566,19 @@ nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<
 nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+
+"---------------------------------------------------------
+" go
+"---------------------------------------------------------
+" Enable lsp for go by using gopls
+let g:completor_filetype_map = {}
+let g:completor_filetype_map.go = {'ft': 'lsp', 'cmd': 'gopls -remote=auto'}"
+
+"----------------------------------------------------------
+" Treesitter lua script setup
+"----------------------------------------------------------
+
+" lua << EOF
+" EOF
+let g:python3_host_prog = "/usr/bin/python3"
