@@ -37,8 +37,9 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'mustache/vim-mustache-handlebars'
 
 " Plug 'leafgarland/typescript-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc-prettier', { do: 'yarn install --frozen-lockfile' }
 
 Plug 'jxnblk/vim-mdx-js'
@@ -52,6 +53,9 @@ Plug 'github/copilot.vim'
 
 Plug 'gpanders/editorconfig.nvim'
 
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -59,7 +63,7 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " set the default font
-set guifont=Noto\ Sans\ Mono:h11
+set guifont=Noto\ Sans\ Mono:h12
 
 set tabstop=2
 set softtabstop=2
@@ -363,11 +367,6 @@ nnoremap <silent> <space>d :cclos<CR>
 """""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <space>g :GitGutterNextHunk<CR>zz
 
-" up down with CTRL+k,TRL+j
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap <expr> <C-J> pumvisible() ? "\<Down>" : "\<C-j>"
-inoremap <expr> <C-K> pumvisible() ? "\<Up>" : "\<C-k>"
-
 " toggle English spell check
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <space>sp :setlocal spell! spelllang=en_us<CR>
@@ -446,20 +445,28 @@ nmap <space>h :CocCommand tsserver.executeAutofix<CR>
 " imap <space>l <Plug>(coc-snippets-expand)
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <space>j <Plug>(coc-snippets-select)
-" Use <C-space> for open popup
-" map <C-space> <Plug>
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<C-j>'
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<C-k>'
-" use <c-space>for trigger completion
-inoremap <silent><expr> <c-space>  coc#refresh()
+
 
 " GoTo code navigation.
-nmap <silent> <space>gd <Plug>(coc-definition)
-nmap <silent> <space>gy <Plug>(coc-type-definition)
-nmap <silent> <space>gi <Plug>(coc-implementation)
+" <Plug>(coc-definition)
+nmap <silent> <space>gd :call <SID>jump_definition()<CR>
+" <Plug>(coc-type-definition)
+nmap <silent> <space>gy :call <SID>jump_type_definition()<CR>
+" <Plug>(coc-implementation)
+nmap <silent> <space>gi :call <SID>jump_implementation()<CR>
 nmap <silent> <space>gr <Plug>(coc-references)
+function! s:jump_definition()
+    call CocAction('jumpDefinition', 'drop')
+endfunction
+
+function! s:jump_implementation()
+    call CocAction('jumpImplementation', 'drop')
+endfunction
+
+function! s:jump_type_definition()
+    call CocAction('jumpTypeDefinition', 'drop')
+endfunction
+
 " Remap for rename current word
 nmap <space>rn <Plug>(coc-rename)
 " VUE coc setup
@@ -575,10 +582,80 @@ inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(
 let g:completor_filetype_map = {}
 let g:completor_filetype_map.go = {'ft': 'lsp', 'cmd': 'gopls -remote=auto'}"
 
-"----------------------------------------------------------
-" Treesitter lua script setup
-"----------------------------------------------------------
 
-" lua << EOF
-" EOF
+"---------------------------------------------------------
+" puthon - anable python3
+"---------------------------------------------------------
 let g:python3_host_prog = "/usr/bin/python3"
+
+
+"---------------------------------------------------------
+" FVim specific
+"---------------------------------------------------------
+
+" Cursor tweaks
+if exists('g:fvim_loaded')
+   FVimCursorSmoothMove v:true
+   FVimCursorSmoothBlink v:true
+
+   " copy paste
+   vnoremap <C-S-c> "*y
+   vnoremap <C-S-v> "*p
+
+   set mouse=a
+   " Ctrl-ScrollWheel for zooming in/out
+   nnoremap <silent> <C-+> :set guifont=+<CR>
+   nnoremap <silent> <C--> :set guifont=-<CR>
+
+    " good old 'set guifont' compatibility with HiDPI hints...
+    if g:fvim_os == 'windows' || g:fvim_render_scale > 1.0
+      set guifont=Noto\ Sans\ Mono:h13
+    else
+      set guifont=Noto\ Sans\ Mono:h16
+    endif
+endif
+
+" open the definition, implementation, references in hte split
+let g:coc_user_config = {}
+let g:coc_user_config['coc.preferences.jumpCommand'] = ['vsplit']
+
+" use <c-space>for trigger completion
+inoremap <silent><expr> <c-space>  coc#refresh()
+inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+inoremap <expr> <C-j> coc#pum#visible() ? coc#snippet#next() : "\<C-j>"
+inoremap <expr> <C-k> coc#pum#visible() ? coc#snippet#prev() : "\<C-k>"
+
+function! OpenZippedFile(f)
+  " get number of new (empty) buffer
+  let l:b = bufnr('%')
+  " construct full path
+  let l:f = substitute(a:f, '.zip/', '.zip::', '')
+  let l:f = substitute(l:f, '/zip:', 'zipfile:', '')
+
+  " swap back to original buffer
+  b #
+  " delete new one
+  exe 'bd! ' . l:b
+  " open buffer with correct path
+  sil exe 'e ' . l:f
+  " read in zip data
+  call zip#Read(l:f, 1)
+endfunction
+
+au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
+
+"---------------------------------------------------------
+" nvim-tree.lua setup
+"---------------------------------------------------------
+lua << EOF
+-- examples for your init.lua
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
+-- empty setup using defaults
+require("nvim-tree").setup()
+EOF
