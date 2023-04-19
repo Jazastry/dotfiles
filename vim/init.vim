@@ -588,6 +588,11 @@ let g:completor_filetype_map.go = {'ft': 'lsp', 'cmd': 'gopls -remote=auto'}"
 "---------------------------------------------------------
 let g:python3_host_prog = "/usr/bin/python3"
 
+"---------------------------------------------------------
+" Fugitive specific
+"---------------------------------------------------------
+" Cleans up the git autocreated buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "---------------------------------------------------------
 " FVim specific
