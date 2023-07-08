@@ -53,8 +53,8 @@ Plug 'github/copilot.vim'
 
 Plug 'gpanders/editorconfig.nvim'
 
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'nvim-tree/nvim-tree.lua'
+" Plug 'nvim-tree/nvim-web-devicons'
+" Plug 'nvim-tree/nvim-tree.lua'
 
 call plug#end()
 
@@ -448,13 +448,6 @@ vmap <space>j <Plug>(coc-snippets-select)
 
 
 " GoTo code navigation.
-" <Plug>(coc-definition)
-nmap <silent> <space>gd :call <SID>jump_definition()<CR>
-" <Plug>(coc-type-definition)
-nmap <silent> <space>gy :call <SID>jump_type_definition()<CR>
-" <Plug>(coc-implementation)
-nmap <silent> <space>gi :call <SID>jump_implementation()<CR>
-nmap <silent> <space>gr <Plug>(coc-references)
 function! s:jump_definition()
     call CocAction('jumpDefinition', 'drop')
 endfunction
@@ -466,6 +459,13 @@ endfunction
 function! s:jump_type_definition()
     call CocAction('jumpTypeDefinition', 'drop')
 endfunction
+" <Plug>(coc-definition)
+nmap <silent> <space>gd :call <SID>jump_definition()<CR>
+" <Plug>(coc-type-definition)
+nmap <silent> <space>gy :call <SID>jump_type_definition()<CR>
+" <Plug>(coc-implementation)
+nmap <silent> <space>gi :call <SID>jump_implementation()<CR>
+nmap <silent> <space>gr <Plug>(coc-references)
 
 " Remap for rename current word
 nmap <space>rn <Plug>(coc-rename)
@@ -597,7 +597,6 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 "---------------------------------------------------------
 " FVim specific
 "---------------------------------------------------------
-
 " Cursor tweaks
 if exists('g:fvim_loaded')
    FVimCursorSmoothMove v:true
@@ -648,19 +647,3 @@ function! OpenZippedFile(f)
 endfunction
 
 au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
-
-"---------------------------------------------------------
-" nvim-tree.lua setup
-"---------------------------------------------------------
-lua << EOF
--- examples for your init.lua
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
-
--- empty setup using defaults
-require("nvim-tree").setup()
-EOF
