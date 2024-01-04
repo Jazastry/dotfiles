@@ -49,12 +49,37 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " We recommend updating the parsers on update
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 
 Plug 'gpanders/editorconfig.nvim'
 
-" Plug 'nvim-tree/nvim-web-devicons'
-" Plug 'nvim-tree/nvim-tree.lua'
+
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim'
+
+" use {
+"     'Equilibris/nx.nvim',
+"     requires = {
+"         'nvim-telescope/telescope.nvim',
+"     },
+"     config = function! EquilibrisSetup()
+"     require("nx").setup {}
+"     end
+" }
+
+function! EquilibrisSetup()
+  require("nx").setup {
+    nx_cmd_root = 'nx',
+    command_runner = require('nx.command-runners').terminal_command_runner(),
+    form_renderer = require('nx.form-renderers').telescope_form_renderer(),
+    read_init = true,
+  }
+  require('nx.actions')
+endfunction
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'Equilibris/nx.nvim', { 'do': function('EquilibrisSetup') }
 
 call plug#end()
 
@@ -387,6 +412,12 @@ let g:airline_theme= 'deus'
 " "'distinguished'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NVIM-TREE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
@@ -447,6 +478,7 @@ nmap <space>h :CocCommand tsserver.executeAutofix<CR>
 vmap <space>j <Plug>(coc-snippets-select)
 
 
+
 " GoTo code navigation.
 function! s:jump_definition()
     call CocAction('jumpDefinition', 'drop')
@@ -466,9 +498,19 @@ nmap <silent> <space>gy :call <SID>jump_type_definition()<CR>
 " <Plug>(coc-implementation)
 nmap <silent> <space>gi :call <SID>jump_implementation()<CR>
 nmap <silent> <space>gr <Plug>(coc-references)
-
 " Remap for rename current word
 nmap <space>rn <Plug>(coc-rename)
+" Jump next error
+nmap <silent> <space>en <Plug>(coc-diagnostic-next-error)
+" Jump previous error
+nmap <silent> <space>em <Plug>(coc-diagnostic-prev-error)
+" Jump next warning
+nmap <silent> <space>wn <Plug>(coc-diagnostic-next)
+" Jump next warning
+nmap <silent> <space>wm <Plug>(coc-diagnostic-prev)
+nmap <silent> <space>co <Plug>(coc-codeaction)
+nmap <silent> <space>coc <Plug>(coc-codeaction-line)
+
 " VUE coc setup
 let g:LanguageClient_serverCommands = {
     \ 'vue': ['vls']
