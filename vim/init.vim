@@ -80,6 +80,7 @@ function! EquilibrisSetup()
 endfunction
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'Equilibris/nx.nvim', { 'do': function('EquilibrisSetup') }
+Plug 'prisma/vim-prisma'
 
 call plug#end()
 
@@ -465,7 +466,7 @@ let g:neovide_cursor_vfx_mode = "railgun"
 " COC setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install plugins:
-" CocInstall coc-eslint coc-snippets coc-tsserver coc-json coc-vetur coc-prettier coc-stylelint coc-yaml coc-spell-checker coc-actions coc-lists coc-yank coc-css coc-import-cost
+" CocInstall coc-eslint coc-snippets coc-tsserver coc-json coc-vetur coc-prettier coc-stylelint coc-yaml coc-spell-checker coc-actions coc-lists coc-yank coc-css coc-import-cost coc-sh coc-prisma
 
 " To get correct comment highlighting in coc-settings.json
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -508,8 +509,8 @@ nmap <silent> <space>em <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <space>wn <Plug>(coc-diagnostic-next)
 " Jump next warning
 nmap <silent> <space>wm <Plug>(coc-diagnostic-prev)
-nmap <silent> <space>co <Plug>(coc-codeaction)
-nmap <silent> <space>coc <Plug>(coc-codeaction-line)
+nmap <silent> <space>i <Plug>(coc-codeaction)
+nmap <silent> <space>ig <Plug>(coc-codeaction-line)
 
 " VUE coc setup
 let g:LanguageClient_serverCommands = {
@@ -689,3 +690,11 @@ function! OpenZippedFile(f)
 endfunction
 
 au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
+
+
+"---------------------------------------------------------
+" Load session if any
+"---------------------------------------------------------
+" if filereadable("./session.vim")
+"     source /etc/vim/vimrc.local
+" endif
