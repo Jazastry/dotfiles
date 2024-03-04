@@ -15,7 +15,7 @@ Plug 'terryma/vim-multiple-cursors'
 " Snippets are separated from the engine. Add this if you want them:
 " Plug 'honza/vim-snippets'
 " A solid language pack (syntax highlighting)
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 " Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -215,6 +215,10 @@ nnoremap <silent> <space><Enter> :call fzf#run({
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
 
+" fzf search in hidden folders "
+""""""""""""""""""""""""""""""""
+let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name ''*.tags'' -printf ''%P\n'''
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " THEME SETUP
@@ -223,11 +227,12 @@ nnoremap <silent> <space><Enter> :call fzf#run({
 if (has("termguicolors"))
   set termguicolors
 endif
+
 set background=dark
-" colorscheme spacemacs-theme
-" colorscheme space_vim_theme
+" --- colorscheme spacemacs-theme
+" --- colorscheme space_vim_theme
 colorscheme space-vim-dark
-" colorscheme jellybeans
+" -- colorscheme jellybeans
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEYMAPPINGS
@@ -508,8 +513,8 @@ nmap <silent> <space>em <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <space>wn <Plug>(coc-diagnostic-next)
 " Jump next warning
 nmap <silent> <space>wm <Plug>(coc-diagnostic-prev)
-nmap <silent> <space>co <Plug>(coc-codeaction)
-nmap <silent> <space>coc <Plug>(coc-codeaction-line)
+nmap <silent> <space>i <Plug>(coc-codeaction)
+nmap <silent> <space>ig <Plug>(coc-codeaction-line)
 
 " VUE coc setup
 let g:LanguageClient_serverCommands = {
@@ -689,3 +694,11 @@ function! OpenZippedFile(f)
 endfunction
 
 au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
+
+
+"---------------------------------------------------------
+" Load session if any
+"---------------------------------------------------------
+" if filereadable("./session.vim")
+"     source /etc/vim/vimrc.local
+" endif
