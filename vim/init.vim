@@ -80,6 +80,7 @@ function! EquilibrisSetup()
 endfunction
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'Equilibris/nx.nvim', { 'do': function('EquilibrisSetup') }
+Plug 'prisma/vim-prisma'
 
 call plug#end()
 
@@ -470,7 +471,7 @@ let g:neovide_cursor_vfx_mode = "railgun"
 " COC setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install plugins:
-" CocInstall coc-eslint coc-snippets coc-tsserver coc-json coc-vetur coc-prettier coc-stylelint coc-yaml coc-spell-checker coc-actions coc-lists coc-yank coc-css coc-import-cost
+" CocInstall coc-eslint coc-snippets coc-tsserver coc-json coc-vetur coc-prettier coc-stylelint coc-yaml coc-spell-checker coc-actions coc-lists coc-yank coc-css coc-import-cost coc-sh coc-prisma
 
 " To get correct comment highlighting in coc-settings.json
 autocmd FileType json syntax match Comment +\/\/.\+$+
