@@ -6,6 +6,12 @@ Plug 'colepeters/spacemacs-theme.vim'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'nanotech/jellybeans.vim'
+Plug 'f4z3r/gruvbox-material.nvim'
+Plug 'ribru17/bamboo.nvim'
+Plug 'audibleblink/hackthebox.vim'
+Plug 'hachy/eva01.vim'
+Plug 'jamespwilliams/bat.vim'
+Plug 'rebelot/kanagawa.nvim'
 
 " Plug 'leafgarland/typescript-vim'
 " Plug 'peitalin/vim-jsx-typescript'
@@ -50,9 +56,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Plug 'github/copilot.vim'
-
 Plug 'gpanders/editorconfig.nvim'
-
 
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-lua/plenary.nvim'
@@ -81,13 +85,14 @@ endfunction
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'Equilibris/nx.nvim', { 'do': function('EquilibrisSetup') }
 Plug 'prisma/vim-prisma'
+" Plug 'nomnivore/ollama.nvim'
+
 
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " set the default font
 set guifont=Noto\ Sans\ Mono:h12
 
@@ -132,6 +137,11 @@ set list
 " shows vertical line on assigned value
 set cc=80
 
+" Cursor settings - ver25, block, hor5
+set guicursor=n-v-c:block,i-ci-ve:ver10,r-cr:hor20,o:hor50
+  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+  \,sm:block-blinkwait175-blinkoff150-blinkon175
+
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
@@ -140,11 +150,9 @@ set list
 syn match Tab "\t"
 hi def Tab ctermbg=darkgreen guibg=#545f70
 
-filetype plugin on
-
 " Add custom filetype1
-
-filetype off
+" filetype on
+filetype plugin on
 filetype plugin indent on
 autocmd Filetype json let g:indentLine_setConceal = 0
 let g:indentLine_enabled = 1
@@ -230,10 +238,32 @@ if (has("termguicolors"))
 endif
 
 set background=dark
-" --- colorscheme spacemacs-theme
-" --- colorscheme space_vim_theme
-colorscheme space-vim-dark
-" -- colorscheme jellybeans
+" colorscheme spacemacs-theme
+" colorscheme space_vim_theme
+" colorscheme space-vim-dark
+" colorscheme jellybeans
+
+"---------------------------------------------------------
+" gruvbox-material theme configuration
+"---------------------------------------------------------
+" let g:gruvbox_material_italics = 1
+" let g:gruvbox_material_contrast = "medium"
+" let g:gruvbox_material_comments_italics = 1
+" let g:gruvbox_material_background = 'hard'
+" let g:gruvbox_material_background_transparent = 0
+" let g:gruvbox_material_float_force_background = 0
+" let g:gruvbox_material_float_background_color = "NONE"
+" let g:gruvbox_material_colors_override = {
+" \   'CursorColumn': ['#f5edca',   '223'],
+" \   'MatchParen': ['#a9b665',   '223'],
+" \ }
+" colorscheme gruvbox-material
+colorscheme kanagawa
+
+" colorscheme bamboo
+" colorscheme hackthebox
+" colorscheme eva01
+" colorscheme bat
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEYMAPPINGS
@@ -578,7 +608,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " White spaces reveal
 "----------------------------------------------------------
 " Show trailing spaces set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:.
-set listchars=tab:>·,extends:>,precedes:<
+set listchars=eol:¬,tab:>·,extends:>,precedes:<
 
 " Show trailing white paces
 :highlight ExtraWhitespace ctermbg=red guibg=red
@@ -695,7 +725,6 @@ function! OpenZippedFile(f)
 endfunction
 
 au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
-
 
 "---------------------------------------------------------
 " Load session if any
