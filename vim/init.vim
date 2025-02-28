@@ -12,6 +12,9 @@ Plug 'audibleblink/hackthebox.vim'
 Plug 'hachy/eva01.vim'
 Plug 'jamespwilliams/bat.vim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'Shatur/neovim-ayu'
+Plug 'oxfist/night-owl.nvim'
+Plug 'barrientosvctor/abyss.nvim'
 
 " Plug 'leafgarland/typescript-vim'
 " Plug 'peitalin/vim-jsx-typescript'
@@ -29,7 +32,8 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'mileszs/ack.vim'
 Plug 'https://github.com/lilydjwg/colorizer'
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'Valloric/MatchTagAlways'
 Plug 'airblade/vim-gitgutter'
 Plug 'https://github.com/tpope/vim-fugitive.git'
@@ -56,6 +60,8 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Plug 'github/copilot.vim'
+Plug 'dpayne/CodeGPT.nvim'
+
 Plug 'gpanders/editorconfig.nvim'
 
 Plug 'nvim-tree/nvim-web-devicons'
@@ -73,20 +79,23 @@ Plug 'nvim-neo-tree/neo-tree.nvim'
 "     end
 " }
 
-function! EquilibrisSetup()
-  require("nx").setup {
-    nx_cmd_root = 'nx',
-    command_runner = require('nx.command-runners').terminal_command_runner(),
-    form_renderer = require('nx.form-renderers').telescope_form_renderer(),
-    read_init = true,
-  }
-  require('nx.actions')
-endfunction
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'Equilibris/nx.nvim', { 'do': function('EquilibrisSetup') }
-Plug 'prisma/vim-prisma'
+" function! EquilibrisSetup()
+"   require("nx").setup {
+"     nx_cmd_root = 'nx',
+"     command_runner = require('nx.command-runners').terminal_command_runner(),
+"     form_renderer = require('nx.form-renderers').telescope_form_renderer(),
+"     read_init = true,
+"   }
+"   require('nx.actions')
+" endfunction
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'Equilibris/nx.nvim', { 'do': function('EquilibrisSetup') }
+" Plug 'prisma/vim-prisma'
 " Plug 'nomnivore/ollama.nvim'
 
+" C# test start
+" Plug 'OrangeT/vim-csharp'
+" C# test end
 
 call plug#end()
 
@@ -96,10 +105,15 @@ call plug#end()
 " set the default font
 set guifont=Noto\ Sans\ Mono:h12
 
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
 set expandtab
+hi TabLine ctermbg=darkgray guibg=gray
+let g:airline_section_tabline = '%!airline#extensions#tabline#get()'
+
+" Set the width of the tab line in characters
+set showtabline=8
 
 " Don't make backups at all
 set nobackup
@@ -132,8 +146,8 @@ set hlsearch            " highlight matches
 set ruler
 set nu
 " This sets up the indent line for function scopes
-set listchars=tab:\|\
-set list
+" set list
+" set listchars=tab:\|\
 " shows vertical line on assigned value
 set cc=80
 
@@ -146,16 +160,16 @@ set guicursor=n-v-c:block,i-ci-ve:ver10,r-cr:hor20,o:hor50
 " delays and poor user experience.
 set updatetime=300
 
-set list
-syn match Tab "\t"
-hi def Tab ctermbg=darkgreen guibg=#545f70
+" set list
+" syn match Tab "\t"
+" hi def Tab ctermbg=darkgreen guibg=#545f70
 
 " Add custom filetype1
 " filetype on
 filetype plugin on
 filetype plugin indent on
-autocmd Filetype json let g:indentLine_setConceal = 0
-let g:indentLine_enabled = 1
+" autocmd Filetype json let g:indentLine_setConceal = 0
+" let g:indentLine_enabled = 1
 let g:vim_json_syntax_conceal = 0
 syntax on
 
@@ -238,8 +252,8 @@ if (has("termguicolors"))
 endif
 
 set background=dark
-" colorscheme spacemacs-theme
-" colorscheme space_vim_theme
+colorscheme spacemacs-theme
+" olorscheme space_vim_theme
 " colorscheme space-vim-dark
 " colorscheme jellybeans
 
@@ -258,8 +272,34 @@ set background=dark
 " \   'MatchParen': ['#a9b665',   '223'],
 " \ }
 " colorscheme gruvbox-material
-colorscheme kanagawa
+" colorscheme kanagawa
+colorscheme abyss
+lua << EOF
+local c = require('abyss.colors')
+require('abyss').setup {
+    italic_comments = true, -- Toggle italic comments
+    italic = true, -- Toggle italic for function names, keywords, strings and booleans
+    bold = true, -- Toggle bold for function names, keywords and booleans
+    transparent_background = false, -- Toggle transparency on neovim background
+    treesitter = true, -- Enable treesitter highlighting. No need to configuration. Default value: (Neovim = true), (Vim = false)
+    overrides = {
+         ColorColumn = { bg = c.bg_completion, bold = true },
+         Comment = { fg = c.midblue, bold = false },
+         Function = { fg = "#C96D27", bold = false },
+         Boolean = { fg = c.yellow, bold = false },
+         Structure = { fg = c.yellow, underline = false },
+         Identifier = { fg = c.shinyblue, underline = false },
+         DiagnosticUnderlineWarn = { sp = "#BE8A54", undercurl = true },
+         Search = { fg = c.black, bg = "#9F9467" },
+         IncSearch = { fg = c.black, bg = c.yellow },
+      }
+}
+EOF
 
+" colorscheme night-owl
+" colorscheme ayu
+" colorscheme ayu-dark
+" colorscheme ayu-mirage
 " colorscheme bamboo
 " colorscheme hackthebox
 " colorscheme eva01
@@ -501,7 +541,7 @@ let g:neovide_cursor_vfx_mode = "railgun"
 " COC setup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install plugins:
-" CocInstall coc-eslint coc-snippets coc-tsserver coc-json coc-vetur coc-prettier coc-stylelint coc-yaml coc-spell-checker coc-actions coc-lists coc-yank coc-css coc-import-cost coc-sh coc-prisma
+" CocInstall coc-eslint coc-snippets coc-tsserver coc-json coc-vetur coc-prettier coc-stylelint coc-yaml coc-spell-checker coc-actions coc-lists coc-yank coc-css coc-import-cost coc-sh coc-prisma coc-html
 
 " To get correct comment highlighting in coc-settings.json
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -608,7 +648,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " White spaces reveal
 "----------------------------------------------------------
 " Show trailing spaces set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:.
-set listchars=eol:¬,tab:>·,extends:>,precedes:<
+set listchars=eol:¬,tab:\ \ ,extends:>,precedes:<
 
 " Show trailing white paces
 :highlight ExtraWhitespace ctermbg=red guibg=red
@@ -732,3 +772,30 @@ au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
 " if filereadable("./session.vim")
 "     source /etc/vim/vimrc.local
 " endif
+
+lua << EOF
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
+
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#4a0c0c" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#583312" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#1a334a" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#402414" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#3e3d30" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#481e3d" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#16363b" })
+end)
+
+require("ibl").setup { indent = { highlight = highlight } }
+EOF
