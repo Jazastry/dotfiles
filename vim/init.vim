@@ -1,20 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
-" call plug#begin()
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'colepeters/spacemacs-theme.vim'
-Plug 'liuchengxu/space-vim-theme'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'nanotech/jellybeans.vim'
-Plug 'f4z3r/gruvbox-material.nvim'
-Plug 'ribru17/bamboo.nvim'
-Plug 'audibleblink/hackthebox.vim'
-Plug 'hachy/eva01.vim'
-Plug 'jamespwilliams/bat.vim'
-Plug 'rebelot/kanagawa.nvim'
-Plug 'Shatur/neovim-ayu'
-Plug 'oxfist/night-owl.nvim'
-Plug 'barrientosvctor/abyss.nvim'
+" We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Plug 'leafgarland/typescript-vim'
 " Plug 'peitalin/vim-jsx-typescript'
@@ -47,20 +33,15 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'mustache/vim-mustache-handlebars'
 
 " Plug 'leafgarland/typescript-vim'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-" Plug 'neoclide/coc-prettier', { do: 'yarn install --frozen-lockfile' }
 
 Plug 'jxnblk/vim-mdx-js'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" We recommend updating the parsers on update
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
 " Plug 'github/copilot.vim'
-Plug 'dpayne/CodeGPT.nvim'
+" Plug 'dpayne/CodeGPT.nvim'
 
 Plug 'gpanders/editorconfig.nvim'
 
@@ -96,6 +77,36 @@ Plug 'nvim-neo-tree/neo-tree.nvim'
 " C# test start
 " Plug 'OrangeT/vim-csharp'
 " C# test end
+"
+Plug 'andythigpen/nvim-coverage'
+
+" Plug 'petertriho/nvim-scrollbar'
+" Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
+" Plug 'wfxr/minimap.vim'
+" Plug 'lewis6991/satellite.nvim'
+" Plug 'echasnovski/mini.nvim'
+" Plug 'lewis6991/gitsigns.nvim'
+" Plug 'Isrothy/neominimap.nvim'
+
+
+
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'colepeters/spacemacs-theme.vim'
+" Plug 'liuchengxu/space-vim-theme'
+" Plug 'liuchengxu/space-vim-dark'
+" Plug 'nanotech/jellybeans.vim'
+" Plug 'f4z3r/gruvbox-material.nvim'
+" Plug 'ribru17/bamboo.nvim'
+" Plug 'audibleblink/hackthebox.vim'
+" Plug 'hachy/eva01.vim'
+" Plug 'jamespwilliams/bat.vim'
+" Plug 'rebelot/kanagawa.nvim'
+" Plug 'Shatur/neovim-ayu'
+" Plug 'oxfist/night-owl.nvim'
+" Plug 'barrientosvctor/abyss.nvim'
+Plug 'jazastry/espresso-libre'
 
 call plug#end()
 
@@ -252,7 +263,7 @@ if (has("termguicolors"))
 endif
 
 set background=dark
-colorscheme spacemacs-theme
+" colorscheme spacemacs-theme
 " olorscheme space_vim_theme
 " colorscheme space-vim-dark
 " colorscheme jellybeans
@@ -273,28 +284,30 @@ colorscheme spacemacs-theme
 " \ }
 " colorscheme gruvbox-material
 " colorscheme kanagawa
-colorscheme abyss
-lua << EOF
-local c = require('abyss.colors')
-require('abyss').setup {
-    italic_comments = true, -- Toggle italic comments
-    italic = true, -- Toggle italic for function names, keywords, strings and booleans
-    bold = true, -- Toggle bold for function names, keywords and booleans
-    transparent_background = false, -- Toggle transparency on neovim background
-    treesitter = true, -- Enable treesitter highlighting. No need to configuration. Default value: (Neovim = true), (Vim = false)
-    overrides = {
-         ColorColumn = { bg = c.bg_completion, bold = true },
-         Comment = { fg = c.midblue, bold = false },
-         Function = { fg = "#C96D27", bold = false },
-         Boolean = { fg = c.yellow, bold = false },
-         Structure = { fg = c.yellow, underline = false },
-         Identifier = { fg = c.shinyblue, underline = false },
-         DiagnosticUnderlineWarn = { sp = "#BE8A54", undercurl = true },
-         Search = { fg = c.black, bg = "#9F9467" },
-         IncSearch = { fg = c.black, bg = c.yellow },
-      }
-}
-EOF
+" colorscheme abyss
+
+colorscheme  espresso-libre
+" lua << EOF
+" local c = require('abyss.colors')
+" require('abyss').setup {
+"     italic_comments = true, -- Toggle italic comments
+"     italic = true, -- Toggle italic for function names, keywords, strings and booleans
+"     bold = true, -- Toggle bold for function names, keywords and booleans
+"     transparent_background = false, -- Toggle transparency on neovim background
+"     treesitter = true, -- Enable treesitter highlighting. No need to configuration. Default value: (Neovim = true), (Vim = false)
+"     overrides = {
+"          ColorColumn = { bg = c.bg_completion, bold = true },
+"          Comment = { fg = c.midblue, bold = false },
+"          Function = { fg = "#C96D27", bold = false },
+"          Boolean = { fg = c.yellow, bold = false },
+"          Structure = { fg = c.yellow, underline = false },
+"          Identifier = { fg = c.shinyblue, underline = false },
+"          DiagnosticUnderlineWarn = { sp = "#BE8A54", undercurl = true },
+"          Search = { fg = c.black, bg = "#9F9467" },
+"          IncSearch = { fg = c.black, bg = c.yellow },
+"       }
+" }
+" EOF
 
 " colorscheme night-owl
 " colorscheme ayu
@@ -582,10 +595,8 @@ nmap <silent> <space>en <Plug>(coc-diagnostic-next-error)
 nmap <silent> <space>em <Plug>(coc-diagnostic-prev-error)
 " Jump next warning
 nmap <silent> <space>wn <Plug>(coc-diagnostic-next)
-" Jump next warning
+" Jump prev warning
 nmap <silent> <space>wm <Plug>(coc-diagnostic-prev)
-nmap <silent> <space>i <Plug>(coc-codeaction)
-nmap <silent> <space>ig <Plug>(coc-codeaction-line)
 
 " VUE coc setup
 let g:LanguageClient_serverCommands = {
@@ -635,12 +646,6 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Formatting selected code.
-xmap <space>fr  <Plug>(coc-format-selected)
-nmap <space>fr  <Plug>(coc-format-selected)
-nmap <space>i  <Plug>(coc-fix-current)
-
-
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -664,10 +669,11 @@ highlight LineNr guifg=#7E7E7E
 "----------------------------------------------------------
 vmap <leader>a <Plug>(coc-codeaction-selected)
 nmap <leader>a <Plug>(coc-codeaction-selected)
-" Remaps for do codeAction of selected region
-" function! s:cocActionsOpenFromSelected(type) abort
-"   execute 'CocCommand actions.open ' . a:type
-" endfunction
+xmap <space>fr <Plug>(coc-format-selected)
+nmap <space>fr <Plug>(coc-format-selected)
+nmap <space>i <Plug>(coc-fix-current)
+nmap <space>ia <Plug>(coc-codeaction)
+nmap <space>ig <Plug>(coc-codeaction-line)
 
 " " ,(Leader)aw - shows word suggestions for the word under the cursor
 " xmap <silent> <Leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
@@ -772,30 +778,3 @@ au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
 " if filereadable("./session.vim")
 "     source /etc/vim/vimrc.local
 " endif
-
-lua << EOF
-local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
-}
-
-local hooks = require "ibl.hooks"
--- create the highlight groups in the highlight setup hook, so they are reset
--- every time the colorscheme changes
-hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#4a0c0c" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#583312" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#1a334a" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#402414" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#3e3d30" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#481e3d" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#16363b" })
-end)
-
-require("ibl").setup { indent = { highlight = highlight } }
-EOF
