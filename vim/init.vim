@@ -40,7 +40,7 @@ Plug 'jxnblk/vim-mdx-js'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
 " Plug 'dpayne/CodeGPT.nvim'
 
 Plug 'gpanders/editorconfig.nvim'
@@ -107,6 +107,10 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'oxfist/night-owl.nvim'
 " Plug 'barrientosvctor/abyss.nvim'
 Plug 'jazastry/espresso-libre'
+
+" Deps
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+
 
 call plug#end()
 
@@ -192,6 +196,7 @@ set conceallevel=0
 set ignorecase
 
 au! BufNewFile,BufRead *.tag,*.sys setf html
+au! BufNewFile,BufRead *.mjs,*.sys setf javascript
 
 " set the leader to ,
 let mapleader=","
