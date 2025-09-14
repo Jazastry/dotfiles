@@ -1,32 +1,51 @@
 require('nvim-treesitter.configs').setup({
-  highlight = { enable = true },
-  -- your other treesitter config
+	highlight = { enable = true },
+	ensure_installed = {
+		"typescript",
+		"tsx",
+		"javascript",
+		"json",
+		"html",
+		"css",
+		"lua",
+		"vim"
+	},
+	sync_install = false,
+	auto_install = true,
 })
 -- Load theme after treesitter
-require('espresso_libre').setup()
+require('espresso-libre').setup()
+
+-- In some projects typescriptreact/typescript should be aliased so treesitter works fine
+vim.filetype.add({
+	extension = {
+		tsx = "typescriptreact",
+		ts = "typescript",
+	},
+})
 
 -- Highlight setup
 local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
+	"RainbowRed",
+	"RainbowYellow",
+	"RainbowBlue",
+	"RainbowOrange",
+	"RainbowGreen",
+	"RainbowViolet",
+	"RainbowCyan",
 }
 
 local hooks = require "ibl.hooks"
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#4a0c0c" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#583312" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#1a334a" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#402414" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#3e3d30" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#481e3d" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#16363b" })
+	vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#4a0c0c" })
+	vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#583312" })
+	vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#1a334a" })
+	vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#402414" })
+	vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#3e3d30" })
+	vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#481e3d" })
+	vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#16363b" })
 end)
 
 require("ibl").setup { indent = { highlight = highlight } }
@@ -56,15 +75,43 @@ require("coverage").setup({
 -- require('mini.diff').setup()
 
 vim.api.nvim_create_user_command('Restart', function()
-  -- Save current session if you want
-  vim.cmd('mksession! /tmp/nvim_restart_session.vim')
-  
-  -- Write all buffers
-  vim.cmd('wall')
-  
-  -- Quit and restart
-  if vim.fn.has('nvim') == 1 then
-    vim.fn.system('nohup nvim --headless -c "source /tmp/nvim_restart_session.vim" &')
-    vim.cmd('qall!')
-  end
+	-- Save current session if you want
+	vim.cmd('mksession! /tmp/nvim_restart_session.vim')
+
+	-- Write all buffers
+	vim.cmd('wall')
+
+	-- Quit and restart
+	if vim.fn.has('nvim') == 1 then
+		vim.fn.system('nohup nvim --headless -c "source /tmp/nvim_restart_session.vim" &')
+		vim.cmd('qall!')
+	end
 end, {})
+
+-- Setup copilot
+-- require("copilot").setup({
+-- 	filetypes = {
+-- 		yaml = true,
+-- 		markdown = true,
+-- 	},
+-- 	suggestion = {
+-- 		keymap = {
+-- 			accept = "<M-l>",
+-- 			next = "<M-n>",
+-- 			prev = "<M-p>",
+-- 		},
+-- 	},
+-- })
+
+-- require("avante").setup({
+-- 	provider = "ollama",
+-- 	providers = {
+-- 		ollama = {
+-- 			endpoint = "http://127.0.0.1:11434",
+-- 			model = "gemma3n:latest",
+-- 		},
+-- 	},
+-- })
+
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3

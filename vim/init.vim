@@ -40,7 +40,8 @@ Plug 'jxnblk/vim-mdx-js'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
+" Plug 'zbirenbaum/copilot.lua'
 " Plug 'dpayne/CodeGPT.nvim'
 
 Plug 'gpanders/editorconfig.nvim'
@@ -108,6 +109,26 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'barrientosvctor/abyss.nvim'
 Plug 'jazastry/espresso-libre'
 
+""""""""""""""
+" Avante deps
+""""""""""""""
+
+" Deps
+" Plug 'MeanderingProgrammer/render-markdown.nvim'
+
+" Optional deps
+" Plug 'hrsh7th/nvim-cmp'
+" Plug 'HakonHarnes/img-clip.nvim'
+" Plug 'stevearc/dressing.nvim' " for enhanced input UI
+" Plug 'folke/snacks.nvim' " for modern input UI
+
+" Yay, pass source=true if you want to build from source
+" Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
+
+""""""""""""""
+
+Plug 'neovim/nvim-lspconfig'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,7 +182,7 @@ set nu
 " set listchars=tab:\|\
 " shows vertical line on assigned value
 set cc=80
-
+set shell=/bin/bash
 " Cursor settings - ver25, block, hor5
 set guicursor=n-v-c:block,i-ci-ve:ver10,r-cr:hor20,o:hor50
   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
@@ -608,7 +629,7 @@ set hidden
 set nobackup
 set nowritebackup
 " Give more space for displaying messages.
-set cmdheight=2
+set cmdheight=1
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
@@ -775,6 +796,3 @@ au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
 "---------------------------------------------------------
 " Load session if any
 "---------------------------------------------------------
-" if filereadable("./session.vim")
-"     source /etc/vim/vimrc.local
-" endif
