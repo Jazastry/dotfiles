@@ -1,6 +1,8 @@
 call plug#begin('~/.config/nvim/plugged')
 " We recommend updating the parsers on update
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
 
 " Plug 'leafgarland/typescript-vim'
 " Plug 'peitalin/vim-jsx-typescript'
@@ -41,13 +43,11 @@ Plug 'jxnblk/vim-mdx-js'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'github/copilot.vim'
-" Plug 'zbirenbaum/copilot.lua'
 " Plug 'dpayne/CodeGPT.nvim'
 
 Plug 'gpanders/editorconfig.nvim'
 
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-neo-tree/neo-tree.nvim'
 
@@ -70,7 +70,14 @@ Plug 'nvim-neo-tree/neo-tree.nvim'
 "   }
 "   require('nx.actions')
 " endfunction
-" Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'sharkdp/fd'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+
+" Search and replace
+Plug 'folke/trouble.nvim'
+Plug 'nvim-pack/nvim-spectre'
+
 " Plug 'Equilibris/nx.nvim', { 'do': function('EquilibrisSetup') }
 " Plug 'prisma/vim-prisma'
 " Plug 'nomnivore/ollama.nvim'
@@ -127,7 +134,8 @@ Plug 'jazastry/espresso-libre'
 
 """"""""""""""
 
-Plug 'neovim/nvim-lspconfig'
+" Deps
+Plug 'MeanderingProgrammer/render-markdown.nvim'
 
 call plug#end()
 
@@ -213,6 +221,7 @@ set conceallevel=0
 set ignorecase
 
 au! BufNewFile,BufRead *.tag,*.sys setf html
+au! BufNewFile,BufRead *.mjs,*.sys setf javascript
 
 " set the leader to ,
 let mapleader=","
