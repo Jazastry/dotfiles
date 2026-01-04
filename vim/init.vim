@@ -42,7 +42,7 @@ Plug 'jxnblk/vim-mdx-js'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 " Plug 'dpayne/CodeGPT.nvim'
 
 Plug 'gpanders/editorconfig.nvim'
@@ -172,6 +172,9 @@ set path+=**
 
 "Ignore directory in search
 set wildignore+=node_modules/*
+set wildignore+=.nx/*
+" For Ack searches
+let g:ackprg = 'ack --ignore-dir=.nx --ignore-dir=node_modules --ignore-dir=coverage'
 " visual autocomplete for command menu
 set wildmenu
 
@@ -780,8 +783,8 @@ let g:coc_user_config['coc.preferences.jumpCommand'] = ['vsplit']
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space>  coc#refresh()
 inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-inoremap <expr> <C-j> coc#pum#visible() ? coc#snippet#next() : "\<C-j>"
-inoremap <expr> <C-k> coc#pum#visible() ? coc#snippet#prev() : "\<C-k>"
+inoremap <expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
+inoremap <expr> <C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
 
 function! OpenZippedFile(f)
   " get number of new (empty) buffer
