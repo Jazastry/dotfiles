@@ -133,3 +133,30 @@ end, {})
 
 -- views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
+
+local animate = require("mini.animate")
+require'mini.animate'.setup {
+  -- Vertical scroll
+  scroll = {
+    -- Whether to enable this animation
+    enable = true,
+
+    -- Timing of animation (how steps will progress in time)
+    timing = animate.gen_timing.linear({ duration = 150, unit = "total" }), --<function: implements linear total 250ms animation duration>,
+
+    -- Subscroll generator based on total scroll
+    -- subscroll = --<function: implements equal scroll with at most 60 steps>,
+  },
+
+  -- Window resize
+  resize = {
+    -- Whether to enable this animation
+    enable = false,
+
+    -- Timing of animation (how steps will progress in time)
+    -- timing = --<function: implements linear total 250ms animation duration>,
+
+    -- Subresize generator for all steps of resize animations
+    -- subresize = --<function: implements equal linear steps>,
+  },
+}

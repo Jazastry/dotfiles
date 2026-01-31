@@ -95,7 +95,7 @@ Plug 'andythigpen/nvim-coverage'
 " Plug 'echasnovski/mini.nvim'
 " Plug 'lewis6991/gitsigns.nvim'
 " Plug 'Isrothy/neominimap.nvim'
-
+Plug 'nvim-mini/mini.nvim', { 'branch': 'stable' }
 
 
 
