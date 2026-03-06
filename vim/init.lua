@@ -107,29 +107,38 @@ vim.api.nvim_create_user_command('Restart', function()
 end, {})
 
 -- Setup copilot
--- require("copilot").setup({
--- 	filetypes = {
--- 		yaml = true,
--- 		markdown = true,
--- 	},
--- 	suggestion = {
--- 		keymap = {
--- 			accept = "<M-l>",
--- 			next = "<M-n>",
--- 			prev = "<M-p>",
--- 		},
--- 	},
--- })
+require("copilot").setup({
+	suggestion = {
+		enabled = true,
+		auto_trigger = true
+	}
+	-- filetypes = {
 
--- require("avante").setup({
--- 	provider = "ollama",
--- 	providers = {
--- 		ollama = {
--- 			endpoint = "http://127.0.0.1:11434",
--- 			model = "gemma3n:latest",
--- 		},
--- 	},
--- })
+	-- 	yaml = true,
+	-- 	markdown = true,
+	-- },
+	-- suggestion = {
+	-- 	keymap = {
+	-- 		accept = "<M-l>",
+	-- 		next = "<M-n>",
+	-- 		prev = "<M-p>",
+	-- 	},
+	-- },
+})
+
+require("avante").setup({
+	provider = "copilot",
+	dependncies = {
+		"zbirenbaum/copilot.lua"
+	}
+	-- provider = "ollama",
+	-- providers = {
+	-- 	ollama = {
+	-- 		endpoint = "http://127.0.0.1:11434",
+	-- 		model = "gemma3n:latest",
+	-- 	},
+	-- },
+})
 
 -- views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
@@ -160,3 +169,20 @@ require'mini.animate'.setup {
     -- subresize = --<function: implements equal linear steps>,
   },
 }
+
+-- require'CopilotChat'.setup {
+--   window = {
+--     layout = 'vertical',
+--     width = 0.3, -- Fixed width in columns
+--     height = 0.3, -- Fixed height in rows
+--     -- height = 20, -- Fixed height in rows
+--     -- height = 20, -- Fixed height in rows
+--     -- border = 'rounded', -- 'single', 'double', 'rounded', 'solid'
+--     -- title = '🤖 AI Assistant',
+--     -- zindex = 100, -- Ensure window stays on top
+-- 		-- row = 1.5, -- Center vertically
+--   },
+-- }
+
+require'auto-session'.setup {}
+require'grug-far'.setup {}

@@ -42,7 +42,6 @@ Plug 'jxnblk/vim-mdx-js'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" Plug 'github/copilot.vim'
 " Plug 'dpayne/CodeGPT.nvim'
 
 Plug 'gpanders/editorconfig.nvim'
@@ -121,22 +120,28 @@ Plug 'jazastry/espresso-libre'
 """"""""""""""
 
 " Deps
-" Plug 'MeanderingProgrammer/render-markdown.nvim'
+Plug 'MeanderingProgrammer/render-markdown.nvim'
 
 " Optional deps
-" Plug 'hrsh7th/nvim-cmp'
-" Plug 'HakonHarnes/img-clip.nvim'
-" Plug 'stevearc/dressing.nvim' " for enhanced input UI
-" Plug 'folke/snacks.nvim' " for modern input UI
+Plug 'hrsh7th/nvim-cmp'
+Plug 'HakonHarnes/img-clip.nvim'
+Plug 'stevearc/dressing.nvim' " for enhanced input UI
+Plug 'folke/snacks.nvim' " for modern input UI
 
 " Yay, pass source=true if you want to build from source
-" Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
+Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
 
 """"""""""""""
 
 " Deps
 Plug 'MeanderingProgrammer/render-markdown.nvim'
+Plug 'copilotlsp-nvim/copilot-lsp'
+Plug 'zbirenbaum/copilot.lua'
+" Plug 'github/copilot.vim'
+" Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
+Plug 'rmagatti/auto-session'
+Plug 'MagicDuck/grug-far.nvim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
