@@ -126,11 +126,42 @@ require("copilot").setup({
 	-- },
 })
 
+
 require("avante").setup({
 	provider = "copilot",
 	dependncies = {
 		"zbirenbaum/copilot.lua"
-	}
+	},
+	custom_tools = {
+		{
+			name = "ddgr_search",
+			description = "Search the web using ddgr and return results as plain text.",
+			param = {
+				type = "table",
+				fields = {
+					{
+						name = "query",
+						description = "Search query string",
+						type = "string",
+					},
+				},
+			},
+			returns = {
+				{
+					name = "results",
+					description = "Search results from ddgr",
+					type = "string",
+				},
+			},
+			func = function(params, on_log, on_complete)
+				local query = params.query or ""
+				local cmd = { "ddgr", "-n", "5", "--json", "-x", "--np", query }
+				local res = vim.system(cmd, { text = true }):wait()
+				return res.stdout
+			end,
+		},
+	},
+	disabled_tools = { "web_search" },
 	-- provider = "ollama",
 	-- providers = {
 	-- 	ollama = {
@@ -184,5 +215,5 @@ require'mini.animate'.setup {
 --   },
 -- }
 
-require'auto-session'.setup {}
+-- require'auto-session'.setup {}
 require'grug-far'.setup {}

@@ -36,7 +36,7 @@ Plug 'mustache/vim-mustache-handlebars'
 
 " Plug 'leafgarland/typescript-vim'
 
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm i'}
 
 Plug 'jxnblk/vim-mdx-js'
 
@@ -140,7 +140,7 @@ Plug 'zbirenbaum/copilot.lua'
 " Plug 'github/copilot.vim'
 " Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
-Plug 'rmagatti/auto-session'
+" Plug 'rmagatti/auto-session'
 Plug 'MagicDuck/grug-far.nvim'
 call plug#end()
 
