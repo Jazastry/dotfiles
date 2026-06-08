@@ -56,7 +56,7 @@ require("lazy").setup({
   spec = {
     -- lazy_spec("auto-session"),
     -- lazy_spec("avante"),
-    lazy_spec("codecompanion"),
+    -- lazy_spec("codecompanion"),
     lazy_spec("copilot"),
     lazy_spec("core"),
     lazy_spec("coverage"),

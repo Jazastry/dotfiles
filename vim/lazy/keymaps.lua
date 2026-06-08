@@ -49,7 +49,7 @@ map("n", ",<space>", "<Cmd>nohlsearch<CR>", { desc = "No highlight search" })
 
 -- Open Ack (prompt for pattern; finish the quoted pattern then Enter).
 -- Do not use silent=true here: it breaks "pending" : command-line mappings (see :help map-silent).
-vim.keymap.set("n", "<space>f", ":Ack! '", { silent = false, desc = "Ack search" })
+vim.keymap.set("n", "<space>f", ":Ack \"", { silent = false, desc = "Ack search" })
 
 -- Close quickfix
 map("n", "<space>d", "<Cmd>cclose<CR>", { desc = "Close quickfix" })

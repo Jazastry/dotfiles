@@ -28,8 +28,8 @@ return {
   { "mustache/vim-mustache-handlebars" },
   {
     "neoclide/coc.nvim",
-    branch = "master",
-    build = "npm install --frozen-lockfile",
+    branch = "release",
+    -- build = "npm ci",
   },
   { "jxnblk/vim-mdx-js" },
   {
