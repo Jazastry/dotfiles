@@ -53,10 +53,10 @@ require("lazy").setup({
   performance = {
     cache = { enabled = false },
   },
-  spec = {
     -- lazy_spec("auto-session"),
     -- lazy_spec("avante"),
     -- lazy_spec("codecompanion"),
+  spec = {
     lazy_spec("copilot"),
     lazy_spec("core"),
     lazy_spec("coverage"),

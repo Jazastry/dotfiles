@@ -22,8 +22,11 @@ return {
     }
 
     vim.g.fzf_history_dir = vim.fn.expand("~/.local/share/fzf-history")
-    vim.env.FZF_DEFAULT_COMMAND =
-      "find . \\! \\( -type d -path ./.git -prune \\) \\! -type d \\! -name '*.tags' -printf '%P\\n'"
+    -- vim.env.FZF_DEFAULT_COMMAND =
+    --   "find . \\! \\( -type d -path ./.git -prune \\) \\! -type d \\! -name '*.tags' -printf '%P\\n'"
+		--   With node_modules exclusion
+		vim.env.FZF_DEFAULT_COMMAND =
+			"find . \\( -path ./.git -o -path '*/node_modules' \\) -prune -o \\! -type d \\! -name '*.tags' -printf '%P\\n'"
 
     -- <space>p: open FZF file search
     vim.keymap.set("n", "<space>p", ":FZF<CR>", { silent = true, desc = "FZF files" })
