@@ -1,0 +1,9 @@
+{
+  "theme": "dark",
+  "verbose": false,
+  "statusLine": {
+    "type": "command",
+    "command": "node \"$CLAUDE_PROJECT_DIR/.claude/scripts/status-line.js\"",
+    "refreshInterval": 10
+  }
+}
