@@ -1,0 +1,26 @@
+{
+  "name": "theme-espresso-libre",
+  "displayName": "Espresso Libre",
+  "description": "Espresso Libre theme ported from gerane/VSCodeThemes (TextMate original by Chris Thomas), with Cursor workbench colors.",
+  "version": "0.0.5",
+  "publisher": "gerane",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": ["Themes"],
+  "icon": "icon.png",
+  "homepage": "https://github.com/gerane/VSCodeThemes/blob/master/gerane.Theme-Espresso_Libre/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gerane/VSCodeThemes.git"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Espresso_Libre",
+        "uiTheme": "vs-dark",
+        "path": "./themes/espresso-libre-color-theme.json"
+      }
+    ]
+  }
+}
